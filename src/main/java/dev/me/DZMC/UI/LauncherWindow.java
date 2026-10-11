@@ -1,6 +1,8 @@
 package dev.me.DZMC.UI;
 
+import dev.me.DZMC.Localisation.LangLoader;
 import dev.me.DZMC.Minecraft.CommandBuilder;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 public class LauncherWindow {
-    private static boolean initialized = false;
+    private static boolean _initialized = false;
 
     private static LauncherWindow _windowInstance;
     private static FXBooter _booter;
@@ -26,20 +28,20 @@ public class LauncherWindow {
     }
 
     public static void startWindow() {
-        if (initialized) return;
+        if (_initialized) return;
         javafx.application.Application.launch(
                 FXBooter.class, _args
         );
-        initialized = true;
+        _initialized = true;
     }
 
     private static void initializeWindow() {
 
-        mainstage.setHeight(1000);
-        mainstage.setWidth(1000);
+        mainstage.setHeight(LauncherConfig.WindowBaseHeight);
+        mainstage.setWidth(LauncherConfig.WindowBaseWidth);
 
         Label lbl = new Label("hello");
-        Button launch = new Button("launch");
+        Button launch = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
 
         VBox content = new VBox();
 
@@ -66,5 +68,18 @@ public class LauncherWindow {
             mainstage = stage;
             initializeWindow();
         }
+    }
+
+
+
+
+
+
+
+    public static class LauncherConfig {
+        public static final int WindowBaseHeight = (int)(Screen.getPrimary().getBounds().getHeight() * 0.75);
+        public static final int WindowBaseWidth = (int)(Screen.getPrimary().getBounds().getWidth() * 0.75);
+
+
     }
 }

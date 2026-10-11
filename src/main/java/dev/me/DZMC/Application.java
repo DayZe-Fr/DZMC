@@ -1,9 +1,13 @@
 package dev.me.DZMC;
 
-import dev.me.DZMC.Minecraft.CommandBuilder;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import dev.me.DZMC.UI.LauncherWindow;
 
 public class Application {
+//    Resources
+    public static final JsonMapper mapper = new JsonMapper();
+
+
     public static void main(String[] args) {
 
         LauncherWindow.setArgs(args);
