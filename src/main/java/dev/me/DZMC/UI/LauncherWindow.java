@@ -55,23 +55,6 @@ public class LauncherWindow {
 
         _mainstage.setScene(_mainScene);
 
-
-
-//        Label lbl = new Label("hello");
-//        Button launch = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
-//
-//        VBox content = new VBox();
-//
-//        content.getChildren().add(lbl);
-//        content.getChildren().add(launch);
-//
-//        Scene scene = new Scene(content);
-//
-//        _mainstage.setScene(scene);
-
-//        launch.setOnAction(actionEvent -> {
-//        });
-
         _mainstage.show();
     }
 
@@ -98,15 +81,15 @@ public class LauncherWindow {
 
         _gameSets = new VBox();
         _gameSets.getStyleClass().add("main-gamesets");
+        _gameSets.setMinHeight(LauncherConfig.WindowBaseHeight * 0.75);
+        VBox.setVgrow(_gameSets, Priority.ALWAYS);
         _gameSetContainer.getChildren().add(_gameSets);
 
         _playButton = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
         _gameSetContainer.getChildren().add(_playButton);
         _playButton.getStyleClass().add("main-play-button");
-        _playButton.setPrefSize(
-                Double.MAX_VALUE,
-                50
-        );
+        _playButton.setPrefWidth(Double.MAX_VALUE);
+        _playButton.setPrefHeight(50);
 
 
 
