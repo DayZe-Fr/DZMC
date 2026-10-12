@@ -3,6 +3,7 @@ package dev.me.DZMC.UI;
 import dev.me.DZMC.Data;
 import dev.me.DZMC.Localisation.LangLoader;
 import dev.me.DZMC.Minecraft.CommandBuilder;
+import dev.me.DZMC.Minecraft.Versions;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -11,7 +12,8 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.stage.StageStyle;
+
+import java.util.HashMap;
 
 public class LauncherWindow {
     private static boolean _initialized = false;
@@ -20,6 +22,7 @@ public class LauncherWindow {
     private static FXBooter _booter;
     private static String[] _args;
 
+    private static versionButton _selectedVersion;
 
     public static Stage _mainstage;
 
@@ -84,6 +87,8 @@ public class LauncherWindow {
         _gameSets.setMinHeight(LauncherConfig.WindowBaseHeight * 0.75);
         VBox.setVgrow(_gameSets, Priority.ALWAYS);
         _gameSetContainer.getChildren().add(_gameSets);
+        addVersions(_gameSets);
+
 
         _playButton = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
         _gameSetContainer.getChildren().add(_playButton);
@@ -99,7 +104,11 @@ public class LauncherWindow {
 //      Connections
 
         _playButton.setOnAction(event -> {
-            CommandBuilder.buildCommand();
+            if (_selectedVersion == null) {
+                System.out.println("Cannot start: No version Selected");
+                return;
+            }
+            CommandBuilder.buildCommand(_selectedVersion.version);
             CommandBuilder.Run(null);
         });
 
@@ -108,6 +117,44 @@ public class LauncherWindow {
         _mainFrameBox.getChildren().add(_gameSetContainer);
         HBox.setMargin(_gameSetContainer, new Insets(10, 5, 10, 10));
     }
+
+    private static void addVersions(VBox _container) {
+        HashMap<String, Versions.Version> all_versions = Versions.enumerateVersions();
+
+        all_versions.forEach((verName, _version) -> {
+            _container.getChildren().add(createVersionBox(verName, _version));
+        });
+    }
+
+    private static Button createVersionBox(
+            String name,
+            Versions.Version ver
+    ) {
+        versionButton _newButton = new versionButton();
+        _newButton.version = ver;
+        _newButton.setText(name);
+        _newButton.getStyleClass().add("main-version-button");
+
+        _newButton.setOnAction(e -> {
+            if (_selectedVersion != null) {
+                _selectedVersion.getStyleClass().remove("main-version-button-selected");
+            }
+            _selectedVersion = _newButton;
+            _selectedVersion.getStyleClass().add("main-version-button-selected");
+        });
+
+        return _newButton;
+    }
+
+    private static class versionButton extends Button {
+        public Versions.Version version;
+    }
+
+
+
+
+
+
 
 
 
@@ -121,7 +168,6 @@ public class LauncherWindow {
             initializeWindow();
         }
     }
-
 
     public static class LauncherConfig {
         public static final int WindowBaseHeight = (int)(Screen.getPrimary().getBounds().getHeight() * 0.75);

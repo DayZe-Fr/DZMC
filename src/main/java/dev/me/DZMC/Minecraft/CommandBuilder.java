@@ -2,6 +2,7 @@ package dev.me.DZMC.Minecraft;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import dev.me.DZMC.Application;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ public class CommandBuilder {
      private static List<String> command = new ArrayList<>();
 
 
-    public static List<String> buildCommand() {
+    public static List<String> buildCommand(Versions.Version version) {
         command.clear();
 
+        boolean modded = false;
+
         try {
-            JsonNode FABRIC_versionJson = mapper.readTree(new File("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\versions\\fabric-loader-0.19.5-1.21.1\\fabric-loader-0.19.5-1.21.1.json"));
+            JsonNode FABRIC_versionJson = version.JSON;
             JsonNode FabricLibs = FABRIC_versionJson.get("libraries");
 
             JsonNode versionJson = mapper.readTree(new File("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\versions\\1.21.1\\1.21.1.json"));
@@ -34,7 +37,7 @@ public class CommandBuilder {
             command.add("javaw.exe");
 
             // 2. Memory Settings
-            command.add("-Xmx2G");
+            command.add("-Xmx3G");
 
             // 3. The Classpath (Telling Java where the engine and libraries are)
 
@@ -55,7 +58,7 @@ public class CommandBuilder {
             command.add("net.fabricmc.loader.impl.launch.knot.KnotClient");
 
             // 5. Game parameters (Passing 'dev' as the player name)
-            command.add("--username"); command.add("dev");
+            command.add("--username"); command.add(Application.username);
             command.add("--version"); command.add("fabric-loader-1.21.1");
             command.add("--gameDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft");
             command.add("--assetsDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\assets");
