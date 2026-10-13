@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Versions {
     private static File _minecraftVersionsRoot;
 
-    private static HashMap<String, Version> _versions = new HashMap<>();
+    private static final HashMap<String, Version> _versions = new HashMap<>();
 
     public static class Version {
         public final JsonNode JSON;
@@ -50,6 +50,10 @@ public class Versions {
             System.exit(1);
         }
         return _versions;
+    }
+
+    public static Version getVersion(String versionID) {
+        return _versions.get(versionID);
     }
 
 
