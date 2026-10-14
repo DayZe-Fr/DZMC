@@ -106,6 +106,17 @@ public class CommandBuilder {
                 command.add(bootVersion.JSON.get("assets").asText());
             }
 
+            command.add("--uuid"); command.add("286342");
+            command.add("--userType"); command.add("legacy");
+            command.add("--accessToken"); command.add("98236467384");
+            command.add("--version"); command.add(bootVersion.Directory.getName());
+
+            System.out.println("JAVA: " + command.get(0));
+
+            for (int i = 0; i < command.size(); i++) {
+                System.out.println("ARG[" + i + "]: " + command.get(i));
+            }
+
 
             return command;
 
@@ -151,7 +162,7 @@ public class CommandBuilder {
     private static String createVerionParams(Versions.Version ver, boolean mods) {
         String Params = "";
 
-        Params += getVersionJarByDir(ver.Directory) + ";"; // adds the first jar.
+        Params += (getVersionJarByDir(ver.Directory) + ";"); // adds the first jar.
 
         String VanillaVerID;
         if (mods) {
