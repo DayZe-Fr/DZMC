@@ -2,6 +2,7 @@ package dev.me.DZMC.Minecraft;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import dev.me.DZMC.Application;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,12 +17,15 @@ public class CommandBuilder {
 
      private static List<String> command = new ArrayList<>();
 
+     private static Versions.Version _VanillaVer; //will be set only if game is modded.
 
-    public static List<String> buildCommand() {
+    public static List<String> _buildCommand(Versions.Version version) {
         command.clear();
 
+        boolean modded = false;
+
         try {
-            JsonNode FABRIC_versionJson = mapper.readTree(new File("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\versions\\fabric-loader-0.19.5-1.21.1\\fabric-loader-0.19.5-1.21.1.json"));
+            JsonNode FABRIC_versionJson = version.JSON;
             JsonNode FabricLibs = FABRIC_versionJson.get("libraries");
 
             JsonNode versionJson = mapper.readTree(new File("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\versions\\1.21.1\\1.21.1.json"));
@@ -34,7 +38,7 @@ public class CommandBuilder {
             command.add("javaw.exe");
 
             // 2. Memory Settings
-            command.add("-Xmx2G");
+            command.add("-Xmx3G");
 
             // 3. The Classpath (Telling Java where the engine and libraries are)
 
@@ -55,7 +59,7 @@ public class CommandBuilder {
             command.add("net.fabricmc.loader.impl.launch.knot.KnotClient");
 
             // 5. Game parameters (Passing 'dev' as the player name)
-            command.add("--username"); command.add("dev");
+            command.add("--username"); command.add(Application.username);
             command.add("--version"); command.add("fabric-loader-1.21.1");
             command.add("--gameDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft");
             command.add("--assetsDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\assets");
@@ -69,6 +73,59 @@ public class CommandBuilder {
             return null;
         }
     }
+
+    public static List<String> buildCommand(Versions.Version bootVersion) {
+        command.clear();
+
+        boolean modded = checkModded(bootVersion);
+
+        try {
+            System.out.println("Configuring Minecraft launch strings...");
+
+            command.add("javaw.exe");
+
+            command.add("-Xmx3G");
+
+            command.add("-cp");
+
+            command.add(createVersionParams(bootVersion, modded));
+
+            command.add(bootVersion.JSON.get("mainClass").asText());
+
+            // 5. Game parameters (Passing 'dev' as the player name)
+            command.add("--username"); command.add(Application.username);
+            command.add("--bootVersion"); command.add(bootVersion.JSON.get("id").asText());
+            command.add("--gameDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft");
+            command.add("--assetsDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\assets");
+            command.add("--assetIndex");
+
+            if (modded) {
+                command.add(_VanillaVer.JSON.get("assets").asText());
+            } else {
+                command.add(bootVersion.JSON.get("assets").asText());
+            }
+
+            command.add("--uuid"); command.add("286342");
+            command.add("--userType"); command.add("legacy");
+            command.add("--accessToken"); command.add("98236467384"); // IN DEV ONLY DUMMY VALUE. THIS WILL BE REWORKED.
+            command.add("--version"); command.add(bootVersion.Directory.getName());
+
+            System.out.println("JAVA: " + command.get(0));
+
+            for (int i = 0; i < command.size(); i++) {
+                System.out.println("ARG[" + i + "]: " + command.get(i));
+            }
+
+
+            return command;
+
+        } catch (Exception e) {
+            System.err.println("Failed to launch Minecraft:");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public static void Run(List<String> cmd) {
         try {
@@ -86,7 +143,45 @@ public class CommandBuilder {
         } catch (Exception e) {
             System.err.println("Failed to launch Minecraft:");
             e.printStackTrace();
+
         }
+    }
+
+    private static boolean checkModded(Versions.Version ver) {
+        String inherit;
+        try {
+            inherit = ver.JSON.get("inheritsFrom").asText();
+            return inherit != null;
+        } catch (Exception e) {
+            System.out.println("===============Non Modded=================");
+            return false;
+        }
+    }
+
+    private static String createVersionParams(Versions.Version ver, boolean mods) {
+        String Params = "";
+
+        Params += (getVersionJarByDir(ver.Directory) + ";"); // adds the first jar.
+
+        String VanillaVerID;
+        if (mods) {
+            VanillaVerID = ver.JSON.get("inheritsFrom").asText();
+            _VanillaVer = Versions.getVersion(VanillaVerID);
+            Params += createVersionParams(_VanillaVer, false);
+            Params += library_handler(_VanillaVer.JSON.get("libraries"));
+        }
+
+        Params += library_handler(ver.JSON.get("libraries"));
+
+        return Params;
+    }
+
+    public static String getVersionJarByDir(File dir) {
+        return (dir.getAbsolutePath()
+                + "/"
+                + dir.getName()
+                + ".jar"
+        );
     }
 
     private static String library_handler(JsonNode lib) {

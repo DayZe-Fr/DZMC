@@ -22,7 +22,7 @@ public class LangLoader {
 
     private static void _loadData() {
         try {
-            _lang_preference = Data.getData("lang").asText();
+            _lang_preference = Data.getPreferencesData("lang").asText();
 
             InputStream dataStream = Application.class.getResourceAsStream(
                     String.format("/lang/%s.json", _lang_preference.trim())

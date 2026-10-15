@@ -1,0 +1,57 @@
+.root {
+    primary: rgb(72, 172, 240);
+    primary-highlight: rgb(76, 124, 255);
+    secondary: rgb(233, 130, 163);
+    border: rgb(227, 231, 211);
+    panel: rgba(37, 37, 37, 0.603);
+    backdrop: rgb(20, 8, 14);
+    surface: rgb(51, 37, 44);
+
+    font-primary: "Arial";
+    font-secondary: "Monospace";
+
+    font-colour-primary: rgb(227, 231, 211);
+    font-colour-secondary: rgb(242, 237, 233);
+    font-colour-tertiary: rgb(16, 35, 51);
+}
+
+.main-container-box {
+    -fx-background-color: radial-gradient(
+        focus-angle 0deg,
+        focus-distance 0%,
+        center 0% 50%,
+        radius 100%,
+        derive(-fx-base, 0%) 0%,
+        #e982a3 0%,
+        #542b3b 35%,
+        #26141c 70%,
+        #14080e 100%
+    );
+}
+
+.main-gameset-container {
+    -fx-background-color: panel;
+
+    -fx-padding: 5px;
+
+    -fx-border-color: border;
+    -fx-border-radius: 10px;
+}
+
+.main-play-button {
+    -fx-font-family: font-primary;
+    -fx-background-color: primary;
+    -fx-text-fill: font-colour-primary;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.main-play-button:pressed {
+    -fx-font-size: 10px;
+    -fx-background-color: primary;
+}
+
+.main-play-button:hover {
+    -fx-background-color: primary-highlight;
+    -fx-text-fill: font-colour-tertiary;
+}
