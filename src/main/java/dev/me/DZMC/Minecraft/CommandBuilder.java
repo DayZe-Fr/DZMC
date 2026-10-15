@@ -7,7 +7,6 @@ import dev.me.DZMC.Application;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class CommandBuilder {
 
@@ -89,7 +88,7 @@ public class CommandBuilder {
 
             command.add("-cp");
 
-            command.add(createVerionParams(bootVersion, modded));
+            command.add(createVersionParams(bootVersion, modded));
 
             command.add(bootVersion.JSON.get("mainClass").asText());
 
@@ -159,7 +158,7 @@ public class CommandBuilder {
         }
     }
 
-    private static String createVerionParams(Versions.Version ver, boolean mods) {
+    private static String createVersionParams(Versions.Version ver, boolean mods) {
         String Params = "";
 
         Params += (getVersionJarByDir(ver.Directory) + ";"); // adds the first jar.
@@ -168,7 +167,7 @@ public class CommandBuilder {
         if (mods) {
             VanillaVerID = ver.JSON.get("inheritsFrom").asText();
             _VanillaVer = Versions.getVersion(VanillaVerID);
-            Params += createVerionParams(_VanillaVer, false);
+            Params += createVersionParams(_VanillaVer, false);
             Params += library_handler(_VanillaVer.JSON.get("libraries"));
         }
 
