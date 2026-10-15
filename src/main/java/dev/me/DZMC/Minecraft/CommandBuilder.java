@@ -108,7 +108,7 @@ public class CommandBuilder {
 
             command.add("--uuid"); command.add("286342");
             command.add("--userType"); command.add("legacy");
-            command.add("--accessToken"); command.add("98236467384");
+            command.add("--accessToken"); command.add("98236467384"); // IN DEV ONLY DUMMY VALUE. THIS WILL BE REWORKED.
             command.add("--version"); command.add(bootVersion.Directory.getName());
 
             System.out.println("JAVA: " + command.get(0));
