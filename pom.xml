@@ -6,7 +6,21 @@
 
     <groupId>Dev</groupId>
     <artifactId>DZLauncher</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.1-alpha</version>
+
+    <developers>
+        <developer>
+            <name>DayZe</name>
+            <id>DayZe-Fr</id>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/mit</url>
+        </license>
+    </licenses>
 
     <build>
         <plugins>
