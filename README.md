@@ -4,7 +4,7 @@
 
 Notice: This is a student project, updates may be slow, and bugs are likely.
 
-## Implemented
+### Implemented
 - Versions
 
 ### Yet to implement
