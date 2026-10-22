@@ -37,7 +37,7 @@ public class Versions {
                         + ".json"
                 );
 
-                JsonNode node = Application.mapper.readTree(jsonfile);
+                JsonNode node = Data.mapper.readTree(jsonfile);
                 Version ver = new Version(node, versionFolder);
 
                 _versions.put(versionFolder.getName(), ver);

@@ -28,7 +28,7 @@ public class LangLoader {
                     String.format("/lang/%s.json", _lang_preference.trim())
             );
 
-            _langData = Application.mapper.readTree(dataStream);
+            _langData = Data.mapper.readTree(dataStream);
 
         } catch (Exception e) {
             System.out.println("Unable to start launcher: lang is missing"); // will make a generator later

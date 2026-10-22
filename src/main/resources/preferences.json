@@ -1,3 +1,15 @@
 {
-  "lang": "de_de"
+  "Global": {
+    "currentUser": "DayZe"
+  },
+  "Users": {
+    "DayZe": {
+      "UUID": "DEV_ONLY_TO_BE_REPLACED",
+      "username":  "DayZe",
+      "userType": "legacy",
+      "accessToken": "DEV_ONLY_DO_NOT_USE",
+
+      "lang": "de_de"
+    }
+  }
 }
