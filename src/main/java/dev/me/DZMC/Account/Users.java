@@ -17,16 +17,6 @@ public class Users {
 
 
 
-
-
-
-
-
-
-
-
-
-
     public record User (
         @JsonProperty("UUID")           String UUID,
         @JsonProperty("username")       String username,
