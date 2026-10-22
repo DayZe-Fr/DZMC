@@ -13,4 +13,3 @@ Notice: This is a student project, updates may be slow, and bugs are likely.
 - Online mode (currently runs on offline mode)
 - custom fx CSS support
 - Users
-
