@@ -1,6 +1,7 @@
 package dev.me.DZMC.UI;
 
 import dev.me.DZMC.Data;
+import dev.me.DZMC.Debug;
 import dev.me.DZMC.Localisation.LangLoader;
 import dev.me.DZMC.Minecraft.CommandBuilder;
 import dev.me.DZMC.Minecraft.Versions;
@@ -13,6 +14,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
+import java.net.URL;
 import java.util.HashMap;
 
 public class LauncherWindow {
@@ -72,9 +74,7 @@ public class LauncherWindow {
         _mainFrameBox.getStyleClass().add("main-container-box");
 
         _mainScene = new Scene(_mainFrameBox);
-        _mainScene.getStylesheets().add(
-                Data.loadResource("fx-css/main.css").toExternalForm()
-        );
+        _mainScene.getStylesheets().add(getCSSSheet_URL("fx-css/main.css").toExternalForm());
         _mainScene.setFill(Color.TRANSPARENT);
 
         _gameSetContainer = new VBox();
@@ -174,7 +174,16 @@ public class LauncherWindow {
 
 
 
-
+    private static URL getCSSSheet_URL(String Path) {
+        try {
+            return Data.loadResourcePath("fx-css/main.css");
+        } catch (Data.DataLoadingException e) {
+            Debug.logToTerminal("No file generator/repairer YET");
+            e.printStackTrace();
+            System.exit(0);
+        }
+        return null;
+    }
 
     public static class FXBooter extends Application {
 
