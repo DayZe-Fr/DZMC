@@ -22,7 +22,7 @@ public class LauncherWindow {
     private static FXBooter _booter;
     private static String[] _args;
 
-    private static versionButton _selectedVersion;
+    private static versionButton _selectedVersionButton;
 
     public static Stage _mainstage;
 
@@ -80,6 +80,7 @@ public class LauncherWindow {
         _gameSetContainer = new VBox();
         _gameSetContainer.getStyleClass().add("main-gameset-container");
         _gameSetContainer.setMinHeight(LauncherConfig.WindowBaseHeight * 0.9);
+        _gameSetContainer.setMaxWidth(LauncherConfig.WindowBaseWidth * 0.20);
         _gameSetContainer.setMinWidth(LauncherConfig.WindowBaseWidth * 0.20);
 
         _gameSets = new VBox();
@@ -93,7 +94,7 @@ public class LauncherWindow {
         _playButton = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
         _gameSetContainer.getChildren().add(_playButton);
         _playButton.getStyleClass().add("main-play-button");
-        _playButton.setPrefWidth(Double.MAX_VALUE);
+        _playButton.setMaxWidth(Double.MAX_VALUE);
         _playButton.setPrefHeight(50);
 
 
@@ -104,11 +105,11 @@ public class LauncherWindow {
 //      Connections
 
         _playButton.setOnAction(event -> {
-            if (_selectedVersion == null) {
+            if (_selectedVersionButton == null) {
                 System.out.println("Cannot start: No version Selected");
                 return;
             }
-            CommandBuilder.buildCommand(_selectedVersion.version);
+            CommandBuilder.buildCommand(_selectedVersionButton.version);
             CommandBuilder.Run(null);
         });
 
@@ -133,21 +134,36 @@ public class LauncherWindow {
         versionButton _newButton = new versionButton();
         _newButton.version = ver;
         _newButton.setText(name);
-        _newButton.getStyleClass().add("main-version-button");
+        _newButton.getStyleClass().add(versionButton.unselectedClass);
 
         _newButton.setOnAction(e -> {
-            if (_selectedVersion != null) {
-                _selectedVersion.getStyleClass().remove("main-version-button-selected");
-            }
-            _selectedVersion = _newButton;
-            _selectedVersion.getStyleClass().add("main-version-button-selected");
+            _newButton.setSelected();
+            _selectedVersionButton = _newButton;
         });
+
+        _newButton.setMaxWidth(Double.MAX_VALUE);
 
         return _newButton;
     }
 
     private static class versionButton extends Button {
         public Versions.Version version;
+        public static final String selectedClass = "main-version-button-selected";
+        public static final String unselectedClass = "main-version-button-unselected";
+
+        public void setSelected() {
+            if (_selectedVersionButton == this) return;
+            if (_selectedVersionButton != null) {
+                _selectedVersionButton.getStyleClass().setAll(
+                        "button",
+                        unselectedClass
+                );
+            }
+            this.getStyleClass().setAll(
+                    "button",
+                    selectedClass
+            );
+        }
     }
 
 

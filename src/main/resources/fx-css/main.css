@@ -2,7 +2,7 @@
     primary: rgb(72, 172, 240);
     primary-highlight: rgb(76, 124, 255);
     secondary: rgb(233, 130, 163);
-    border: rgb(227, 231, 211);
+    fborder: rgb(227, 231, 211);
     panel: rgba(37, 37, 37, 0.603);
     backdrop: rgb(20, 8, 14);
     surface: rgb(51, 37, 44);
@@ -31,10 +31,8 @@
 
 .main-gameset-container {
     -fx-background-color: panel;
-
     -fx-padding: 5px;
-
-    -fx-border-color: border;
+    -fx-border-color: fborder;
     -fx-border-radius: 10px;
 }
 
@@ -54,4 +52,25 @@
 .main-play-button:hover {
     -fx-background-color: primary-highlight;
     -fx-text-fill: font-colour-tertiary;
+}
+
+.main-version-button-unselected {
+    -fx-background-color: surface;
+    -fx-font-family: font-primary;
+    -fx-text-fill: font-colour-primary;
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+    -fx-border-radius: 5px;
+    -fx-border-color: fborder;
+}
+
+.main-version-button-selected {
+    -fx-background-color: secondary;
+    -fx-font-family: font-primary;
+    -fx-text-fill: font-colour-tertiary;
+    -fx-font-size: 13px;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-border-color: fborder;
 }
