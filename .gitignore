@@ -40,3 +40,7 @@ build/
 
 ### wrapper
 wrapper.zip
+
+
+### Runtime via Jlink
+runtime/

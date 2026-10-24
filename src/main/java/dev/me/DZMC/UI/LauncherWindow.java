@@ -176,7 +176,7 @@ public class LauncherWindow {
 
     private static URL getCSSSheet_URL(String Path) {
         try {
-            return Data.loadResourcePath("fx-css/main.css");
+            return Data.getResourcePath("fx-css/main.css");
         } catch (Data.DataLoadingException e) {
             Debug.logToTerminal("No file generator/repairer YET");
             e.printStackTrace();
