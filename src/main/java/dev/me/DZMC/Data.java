@@ -20,9 +20,16 @@ public class Data {
 // TEMP
     private static String loggedinUsr = "DayZe";
 
-    public static JsonNode getPreferencesData(String key) throws DataLoadingException {
+    /// <summery>Gets User Preferences JSON Node</summery>
+    public static JsonNode getUsersPrefNode() throws DataLoadingException {
         if (!_initialsed) _loadData();
-        return _preferences.get("Users").get(loggedinUsr).get(key);
+        return _preferences.get("Users");
+    }
+
+    /// <summery>Gets User Preferences JSON Node</summery>
+    public static JsonNode getGlobPrefNode() throws DataLoadingException {
+        if (!_initialsed) _loadData();
+        return _preferences.get("Global");
     }
 
     public static File get_minecraftRoot() throws DataLoadingException {
@@ -41,17 +48,26 @@ public class Data {
         } catch (Exception e) {
             System.out.println("Unable to start launcher: preferences.json missing"); // will make a generator later
             System.out.println(e.getMessage());
-            throw new DataLoadingException("resources/preferences.json");
+            throw new DataLoadingException("resources/preferences.json OR %s/.minecraft");
         }
     }
 
-    public static URL loadResourcePath(String Location) throws DataLoadingException {
+    public static URL getResourcePath(String Location) throws DataLoadingException {
 
         URL path = Data.class.getResource("/" + Location);
         if (path == null) {
             throw new DataLoadingException(Location);
         } else {
             return path;
+        }
+    }
+
+    public static InputStream getResourceAsInputStream(String Location) throws DataLoadingException {
+        InputStream _inputStream = Data.class.getResourceAsStream("/" + Location);
+        if (_inputStream == null) {
+            throw new DataLoadingException(Location);
+        } else {
+            return _inputStream;
         }
     }
 

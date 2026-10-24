@@ -1,7 +1,7 @@
 package dev.me.DZMC.Localisation;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import dev.me.DZMC.Application;
+import dev.me.DZMC.Account.Users;
 import dev.me.DZMC.Data;
 
 import java.io.InputStream;
@@ -22,10 +22,13 @@ public class LangLoader {
 
     private static void _loadData() {
         try {
-            _lang_preference = Data.getPreferencesData("lang").asText();
+            _lang_preference = Users.getCurrentUser().lang();
 
-            InputStream dataStream = Application.class.getResourceAsStream(
-                    String.format("/lang/%s.json", _lang_preference.trim())
+//            InputStream dataStream = Application.class.getResourceAsStream(
+//                    String.format("/lang/%s.json", _lang_preference.trim())
+//            );
+            InputStream dataStream = Data.getResourceAsInputStream(
+                    String.format("lang/%s.json", _lang_preference.trim())
             );
 
             _langData = Data.mapper.readTree(dataStream);
