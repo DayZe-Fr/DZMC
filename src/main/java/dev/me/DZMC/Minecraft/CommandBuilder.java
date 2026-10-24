@@ -2,6 +2,7 @@ package dev.me.DZMC.Minecraft;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import dev.me.DZMC.Account.Users;
 import dev.me.DZMC.Application;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class CommandBuilder {
             command.add(bootVersion.JSON.get("mainClass").asText()); // main class
 
             // 5. Game parameters
-            command.add("--username"); command.add(Application.username);
+            command.add("--username"); command.add(Users.getCurrentUser().username());
             command.add("--bootVersion"); command.add(bootVersion.JSON.get("id").asText());
             command.add("--gameDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft");
             command.add("--assetsDir"); command.add("C:\\Users\\sagar\\AppData\\Roaming\\.minecraft\\assets");
@@ -50,9 +51,9 @@ public class CommandBuilder {
                 command.add(bootVersion.JSON.get("assets").asText());
             }
 
-            command.add("--uuid"); command.add("286342");
-            command.add("--userType"); command.add("legacy");
-            command.add("--accessToken"); command.add("98236467384"); // IN DEV ONLY DUMMY VALUE. THIS WILL BE REWORKED.
+            command.add("--uuid"); command.add(Users.getCurrentUser().UUID());
+            command.add("--userType"); command.add(Users.getCurrentUser().userType());
+            command.add("--accessToken"); command.add(Users.getCurrentUser().accessToken()); // IN DEV ONLY DUMMY VALUE. THIS WILL BE REWORKED TO BE ENCRYPTED.
             command.add("--version"); command.add(bootVersion.Directory.getName());
 
             System.out.println("JAVA: " + command.get(0));

@@ -170,10 +170,6 @@ public class LauncherWindow {
 
 
 
-
-
-
-
     private static URL getCSSSheet_URL(String Path) {
         try {
             return Data.getResourcePath("fx-css/main.css");
