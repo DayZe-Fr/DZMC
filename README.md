@@ -14,7 +14,6 @@ Notice: This is a student project, updates may be slow, and bugs are likely.
 - Online mode (currently runs on offline mode)
 - custom fx CSS support
 
-
 ## How to build from source
 I've left this here for anyone(if any at all), ever need to build my code.
 
@@ -47,4 +46,3 @@ jpackage `
   --runtime-image "runtime" `
   --dest "dist"
 ```
-
