@@ -3,7 +3,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Dev</groupId>
   <artifactId>DZLauncher</artifactId>
-  <version>0.1.1-alpha</version>
+  <version>0.2.0-alpha</version>
+  <developers>
+    <developer>
+      <id>DayZe-Fr</id>
+      <name>DayZe</name>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/license/mit</url>
+    </license>
+  </licenses>
   <build>
     <plugins>
       <plugin>
