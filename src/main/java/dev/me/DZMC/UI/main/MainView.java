@@ -17,6 +17,8 @@ public class MainView extends HBox {
         this.getStyleClass().add("main-container-box");
         VBox.setVgrow(this, Priority.ALWAYS);
         this.setPrefWidth(Double.MAX_VALUE);
+
+        this.getChildren().add(gamesetContainer);
     }
 
 }

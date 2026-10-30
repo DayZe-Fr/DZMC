@@ -52,6 +52,7 @@ public class Data {
         }
     }
 
+    ///  <summery>Gets a resource's URL by location. "resources/" is added for you.</summery>
     public static URL getResourcePath(String Location) throws DataLoadingException {
 
         URL path = Data.class.getResource("/" + Location);

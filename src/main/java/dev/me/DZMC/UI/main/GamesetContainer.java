@@ -1,7 +1,15 @@
 package dev.me.DZMC.UI.main;
 
+import dev.me.DZMC.Localisation.LangLoader;
+import dev.me.DZMC.Minecraft.CommandBuilder;
 import dev.me.DZMC.Minecraft.Versions;
+import dev.me.DZMC.UI.LauncherWindow;
+import dev.me.DZMC.UI.SceneController;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
@@ -10,10 +18,63 @@ public class GamesetContainer extends VBox {
 
     private static versionButton _selectedVersionButton;
 
+    private ScrollPane _versionsScrollContainer = new ScrollPane();
+    private VBox _versionsContainerContent = new VBox();
+
+    private Button _playButton = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
+
 
     public GamesetContainer() {
+        this.getStyleClass().add("main-gameset-container");
+        this.setMinHeight(SceneController.LauncherConfig.ContentAreaHeight * 0.9);
+        this.setMaxWidth(SceneController.LauncherConfig.WindowBaseWidth * 0.20);
+        this.setMinWidth(SceneController.LauncherConfig.WindowBaseWidth * 0.20);
 
+
+        _versionsContainerContent.getStyleClass().add("main-gamesets");
+        _versionsContainerContent.setMinHeight(LauncherWindow.LauncherConfig.WindowBaseHeight * 0.75);
+        _versionsContainerContent.setSpacing(1.5);
+        addVersions(_versionsContainerContent);
+
+        _versionsScrollContainer.setContent(_versionsContainerContent);
+        _versionsScrollContainer.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        _versionsScrollContainer.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        _versionsScrollContainer.getStyleClass().setAll("transparent");
+        _versionsScrollContainer.setFitToWidth(true);
+        VBox.setVgrow(_versionsScrollContainer, Priority.ALWAYS);
+
+        this.getChildren().add(_versionsScrollContainer);
+
+
+        _playButton = new Button(LangLoader.Query("dev.me.DZMC.launch_game"));
+        this.getChildren().add(_playButton);
+        _playButton.getStyleClass().add("main-play-button");
+        _playButton.setMaxWidth(Double.MAX_VALUE);
+        _playButton.setPrefHeight(50);
+
+
+
+
+
+
+//      Connections
+
+        _playButton.setOnAction(event -> {
+            if (_selectedVersionButton == null) {
+                System.out.println("Cannot start: No version Selected");
+                return;
+            }
+            CommandBuilder.buildCommand(_selectedVersionButton.version);
+            CommandBuilder.Run(null);
+        });
+
+
+        HBox.setMargin(this, new Insets(10, 5, 10, 10));
     }
+
+
+
+
 
 
     private void addVersions(VBox _container) {

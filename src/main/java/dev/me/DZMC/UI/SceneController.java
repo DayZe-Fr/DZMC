@@ -4,7 +4,10 @@ import dev.me.DZMC.Data;
 import dev.me.DZMC.Debug;
 import dev.me.DZMC.UI.main.MainView;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -12,7 +15,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.net.URL;
 
 public class SceneController extends Application {
@@ -30,6 +32,9 @@ public class SceneController extends Application {
     // Views
 
     private MainView _mainView;
+
+    // DECOR
+    private ImageView _cornerDecor;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -87,8 +92,26 @@ public class SceneController extends Application {
 
         _rootStackPane.getChildren().add(border);
 
+        // Check for and add decor
+        addDecor();
+
         _mainStage.setScene(_scene);
         _mainStage.show();
+    }
+
+    private void addDecor() {
+        try {
+            URL cornerDecorResource = Data.getResourcePath("decor/corner_decor.png");
+            Image cornerDecorImage = new javafx.scene.image.Image(cornerDecorResource.toExternalForm());
+            _cornerDecor = new ImageView(cornerDecorImage);
+            _cornerDecor.setPreserveRatio(true);
+            _cornerDecor.setFitHeight(LauncherConfig.WindowBaseHeight * 0.30);
+
+            StackPane.setAlignment(_cornerDecor, Pos.BOTTOM_RIGHT);
+            _rootStackPane.getChildren().add(_cornerDecor);
+        } catch (Exception _) {
+            Debug.logToTerminal("NOT FOUND================");
+        }
     }
 
     /// <summery>Gets the `java.net.URL` from a resource. The 'resources/' is included for you.</summery>

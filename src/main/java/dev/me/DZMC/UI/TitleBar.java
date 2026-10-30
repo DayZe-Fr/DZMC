@@ -11,7 +11,7 @@ public class TitleBar extends HBox {
 
     private Region _gap = new Region();
 
-    private Label _titleLabel = new Label("DZMC BUILD v0.2.1");
+    private Label _titleLabel = new Label("DZMC BUILD v0.3.0-alpha");
     private Button _closeBTN = new Button("✕");
     private Button _minBTN = new Button("—");
 
