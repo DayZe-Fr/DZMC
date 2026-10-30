@@ -1,5 +1,6 @@
 package dev.me.DZMC.UI;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -10,7 +11,7 @@ public class TitleBar extends HBox {
 
     private Region _gap = new Region();
 
-    private Label _titleLabel = new Label("DZMC");
+    private Label _titleLabel = new Label("DZMC BUILD v0.2.1");
     private Button _closeBTN = new Button("✕");
     private Button _minBTN = new Button("—");
 
@@ -21,14 +22,35 @@ public class TitleBar extends HBox {
         this.setMinHeight(SceneController.LauncherConfig.TitleBarHeight);
         this.getStyleClass().add("title-bar");
 
-        _titleLabel.getStyleClass().add("title-window-label");
+        /*========================= configuring the buttons =========================*/
+        _closeBTN.getStyleClass().addAll("title-bar-button", "title-bar-close-button");
+        _minBTN.getStyleClass().addAll("title-bar-button", "title-bar-min-button");
 
-        HBox.setHgrow(_gap, Priority.ALWAYS);
+        int barButtonDimentions = (int)(SceneController.LauncherConfig.TitleBarHeight * 0.75);
+        _closeBTN.setMinSize(barButtonDimentions, barButtonDimentions);
+        _minBTN.setMinSize(barButtonDimentions, barButtonDimentions);
+
+        Insets button_margins = new Insets(5, 5, 4.5, 5);
+
+        HBox.setMargin(_closeBTN, button_margins);
+        HBox.setMargin(_minBTN, button_margins);
 
         _closeBTN.setOnAction(e -> System.exit(0));
         _minBTN.setOnAction(e -> SceneController.getInstance().getStage().setIconified(true));
+        /*========================= ======================== =========================*/
 
 
+        /*========================= configuring the titlebar =========================*/
+        _titleLabel.getStyleClass().add("title-window-label");
+
+        Insets titleInsets = new Insets(7, 0, 2.5, 10);
+        HBox.setMargin(_titleLabel, titleInsets);
+        /*========================= ======================== =========================*/
+
+        HBox.setHgrow(_gap, Priority.ALWAYS);
+
+
+        /*=================== dont understand this bit properly yet ===================*/
         setOnMousePressed(event -> {
             mouseOffsetX = event.getScreenX()
                     - SceneController.getInstance().getStage().getX();
@@ -44,6 +66,7 @@ public class TitleBar extends HBox {
             SceneController.getInstance().getStage().setY(
                     event.getScreenY() - mouseOffsetY);
         });
+        /*========================= ======================== =========================*/
 
         this.getChildren().addAll(_titleLabel,
                 _gap,
