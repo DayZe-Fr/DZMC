@@ -2,7 +2,10 @@
 
 **An Open Source Minecraft Launcher Written In Java**
 
-Notice: This is a student project, updates may be slow, and bugs are likely.
+Notice: This is a small project, updates may be slow, and bugs are likely.
+To be entirely honest this was to fix my own problems with Minecraft launchers.
+
+**Additionally**; if you want to launch Minecraft on this, you'll need to replace some stuff in the preferences.json, such as the uid. The built version will use a dummy value until authentication is implemented.
 
 ### Implemented
 - Versions

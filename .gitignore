@@ -44,3 +44,6 @@ wrapper.zip
 
 ### Runtime via Jlink
 runtime/
+
+### Decor
+src/main/resources/decor/

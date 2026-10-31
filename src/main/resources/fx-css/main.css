@@ -16,16 +16,26 @@
 }
 
 .main-container-box {
+    /*-fx-background-color: radial-gradient(
+        focus-angle 0deg,
+        focus-distance 0%,
+        center 0% 50%,
+        radius 100%,
+        #e982a3 0%,
+        #542b3b 35%,
+        #26141c 70%,
+        #14080e 100%
+    ); */
+
     -fx-background-color: radial-gradient(
         focus-angle 0deg,
         focus-distance 0%,
         center 0% 50%,
         radius 100%,
-        derive(-fx-base, 0%) 0%,
-        #e982a3 0%,
-        #542b3b 35%,
-        #26141c 70%,
-        #14080e 100%
+        rgba(233, 130, 163, 1.0) 0%,
+        rgba(84, 43, 59, 0.95) 35%,
+        rgba(38, 20, 28, 0.90) 70%,
+        rgba(20, 8, 14, 0.9) 100%
     );
 }
 

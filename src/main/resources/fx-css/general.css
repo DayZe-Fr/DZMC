@@ -1,0 +1,61 @@
+.root {
+    primary: rgb(72, 172, 240);
+    primary-highlight: rgb(76, 124, 255);
+    secondary: rgb(233, 130, 163);
+    fborder: rgb(227, 231, 211);
+    panel: rgba(37, 37, 37, 0.603);
+    backdrop: rgb(20, 8, 14);
+    surface: rgb(51, 37, 44);
+
+    font-primary: "Arial";
+    font-secondary: "Monospace";
+
+    font-colour-primary: rgb(227, 231, 211);
+    font-colour-secondary: rgb(242, 237, 233);
+    font-colour-tertiary: rgb(16, 35, 51);
+}
+
+
+.transparent {
+    -fx-background-color: transparent;
+}
+
+.corner20px {
+    -fx-background-radius: 20px;
+}
+
+.title-bar {
+    -fx-background-color: primary;
+}
+
+.title-window-label {
+    -fx-font-family: font-secondary;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.title-bar-button {
+    -fx-padding: 2px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-color: fborder;
+    -fx-border-width: 1.5px;
+    -fx-font-family: font-secondary;
+    -fx-font-weight: bold;
+}
+
+.title-bar-close-button {
+    -fx-background-color: rgb(238, 33, 33);
+}
+
+.title-bar-close-button:hover {
+    -fx-background-color: rgb(172, 25, 25);
+}
+
+.title-bar-min-button {
+    -fx-background-color: rgb(33, 163, 238);
+}
+
+.title-bar-min-button:hover {
+    -fx-background-color: rgb(23, 111, 161);
+}
