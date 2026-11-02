@@ -83,6 +83,7 @@ public class CommandBuilder {
                 pb.inheritIO(); // Streams game output to your console so you can track errors
                 pb.start();
             }
+            System.exit(0);
         } catch (Exception e) {
             System.err.println("Failed to launch Minecraft:");
             e.printStackTrace();

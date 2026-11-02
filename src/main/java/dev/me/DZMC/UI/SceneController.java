@@ -109,7 +109,7 @@ public class SceneController extends Application {
 
             StackPane.setAlignment(_cornerDecor, Pos.BOTTOM_RIGHT);
             _rootStackPane.getChildren().add(_cornerDecor);
-        } catch (Exception _) {
+        } catch (Exception e) {
             Debug.logToTerminal("NOT FOUND================");
         }
     }

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Dev</groupId>
   <artifactId>DZLauncher</artifactId>
-  <version>0.2.0-alpha</version>
+  <version>0.3.0-alpha</version>
   <developers>
     <developer>
       <id>DayZe-Fr</id>
@@ -40,9 +40,7 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>21</source>
-          <target>21</target>
-          <compilerArgs>--enable-preview</compilerArgs>
+          <release>21</release>
         </configuration>
       </plugin>
     </plugins>
